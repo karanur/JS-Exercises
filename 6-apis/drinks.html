@@ -64,7 +64,7 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script type="text/javascript">
 
-        var requestUrl = "TODO"
+        var requestUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
 
         d3.json(requestUrl).then(function(data){
             console.log("DATA:", data)
@@ -73,14 +73,49 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            // Extract the drinks array
+            const drinks = data.drinks;
 
+            // Display number of drinks
+            console.log(`Number of Drinks: ${drinks.length}`);
+
+            // Loop through the drinks and display name and ID
+            drinks.forEach(drink => {
+                console.log(`Name: ${drink.strDrink}, ID: ${drink.idDrink}`);
+            });
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            // Display elements
+            const drinksCountElement = document.getElementById("display-drinks-count");
+            const drinksContainer = document.getElementById("display-drinks");
 
+            // Update the number of drinks
+            drinksCountElement.textContent = drinks.length;
+
+            // Loop through the drinks and display them
+            drinks.forEach(drink => {
+                
+                const drinkDiv = document.createElement("div");
+
+                // Add drink name
+                const drinkName = document.createElement("p");
+                drinkName.textContent = drink.strDrink;
+                drinkDiv.appendChild(drinkName);
+
+                // Add drink image
+                const drinkImage = document.createElement("img");
+                drinkImage.src = drink.strDrinkThumb;
+                drinkImage.alt = drink.strDrink;
+                drinkImage.style.height = "100px";
+                drinkDiv.appendChild(drinkImage);
+
+               
+                drinksContainer.appendChild(drinkDiv);
+            });
 
 
         })

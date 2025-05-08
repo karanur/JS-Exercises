@@ -100,16 +100,26 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
-
-
-
+            // Extract required information
+    
+                console.log("Company Name:", companyName);
+                console.log("Description:", companyDescription);
+                console.log("Website:", companyWebsite);
 
 
                 console.log("---------------------")
                 console.log("PART 2...")
-
-
-
+                displayName.textContent = data.Name || "N/A"
+                displayDescription.textContent = data.Description || "N/A"
+                displayLink.textContent = data.Website || "N/A"
+                displayLink.href = data.Website || "#"
+                
+            // Update display elements
+                document.getElementById("display-name").textContent = companyName;
+                document.getElementById("display-description").textContent = companyDescription;
+                var linkElement = document.getElementById("display-link");
+                linkElement.textContent = companyWebsite;
+                linkElement.href = companyWebsite;
 
 
             }).catch(function(error) {
@@ -119,9 +129,10 @@
 
         // FUNCTION INVOCATIONS
         // invoke function when the page loads:
-        //lookupCompany()
+        lookupCompany();
         // invoke function when button is clicked:
-        //lookupButton.addEventListener("click", lookupCompany, false)
+        var lookupButton = document.getElementById("lookup");
+        lookupButton.addEventListener("click", lookupCompany, false);
 
     </script>
 </body>

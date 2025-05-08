@@ -92,14 +92,62 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            // A. Fetch market status data
+            const markets = data.markets || [];
+            console.log("Total Markets:", markets.length);
 
+            // B. Filter for equity markets
+            const equityMarkets = markets.filter(market => market.market_type === "Equity");
+            console.log("Number of Equity Markets:", equityMarkets.length);
 
+            // C. Display market type and region of each equity market
+            equityMarkets.forEach(market => {
+                console.log(`Market Type: ${market.market_type}, Region: ${market.region}`);
+            });
+
+            // D. Find the US market
+            const usMarket = equityMarkets.find(market => market.region === "United States");
+
+            // E. Display US market information
+            if (usMarket) {
+                console.log("US Market Information:");
+                console.log(`Market Type: ${usMarket.market_type}`);
+                console.log(`Primary Exchanges: ${usMarket.primary_exchanges.join(", ")}`);
+                console.log(`Local Open: ${usMarket.local_open}`);
+                console.log(`Local Close: ${usMarket.local_close}`);
+                console.log(`Status: ${usMarket.market_status.toUpperCase()}`);
+            } else {
+                console.warn("US Market data not found.");
+            }
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            // DOM Elements
+            const displayRegion = document.getElementById("display-region");
+            const displayType = document.getElementById("display-type");
+            const displayExchanges = document.getElementById("display-exchanges");
+            const displayOpen = document.getElementById("display-open");
+            const displayClose = document.getElementById("display-close");
+            const displayStatus = document.getElementById("display-status");
 
+            // Display Data in the DOM
+            if (usMarket) {
+                displayRegion.textContent = usMarket.region;
+                displayType.textContent = usMarket.market_type;
+                displayExchanges.textContent = usMarket.primary_exchanges.join(", ");
+                displayOpen.textContent = usMarket.local_open;
+                displayClose.textContent = usMarket.local_close;
+                displayStatus.textContent = usMarket.market_status.toUpperCase();
+            } else {
+                displayRegion.textContent = "Data not available";
+                displayType.textContent = "Data not available";
+                displayExchanges.textContent = "Data not available";
+                displayOpen.textContent = "Data not available";
+                displayClose.textContent = "Data not available";
+                displayStatus.textContent = "Data not available";
+            }
 
 
         }).catch(function(error) {

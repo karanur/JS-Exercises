@@ -45,7 +45,23 @@
         The interface should include a button, that when clicked should perform the simulation and
         and display the resulting number of years and actual ending balance on the page.
     </p>
+    <p style = "color: red;">Create your own simulation using the form below:</p>
+    <label>Initial Balance:</label>
+    <input type="number" id="input-balance" placeholder="150000" value="150000"><br>
 
+    <label>Desired Ending Balance:</label>
+    <input type="number" id="input-target" placeholder="1000000" value="1000000"><br>
+
+    <label>Mean Return (%):</label>
+    <input type="number" id="input-mean" placeholder="8" value="8"><br>
+
+    <label>Standard Deviation (%):</label>
+    <input type="number" id="input-std" placeholder="15" value="15"><br>
+
+    <button id="run-simulation">Run Simulation</button><br>
+
+    <label>Result:</label>
+    <span id="display-result">TODO</span>
 
 
     <script src="https://cdn.jsdelivr.net/npm/d3-random@3"></script>
@@ -59,6 +75,20 @@
         console.log("PART 1...")
 
 
+        var balance = 150000
+        var year = 0
+
+        while(balance < 1000000){
+            // annual return
+            year = year + 1
+            balance = balance * 1.08
+            console.log(year, balance) 
+        }
+
+        console.log("DONE!");
+        console.log("Years:", year);
+        console.log("Ending Balance:", formatUSD(balance));
+
 
 
 
@@ -66,17 +96,59 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        var balance = 150000;
+        var year = 0;
+        var rateGenerator = d3.randomNormal(0.08, 0.15);
 
+        while(balance < 1000000){
+        var rate = rateGenerator();
+        year++;
+        balance *= (1 + rate);
+        console.log(`Year: ${year}, Rate: ${(rate * 100).toFixed(2)}%, Balance: ${formatUSD(balance)}`);
+    }
 
+    console.log("DONE!");
+    console.log("Years:", year);
+    console.log("Ending Balance:", formatUSD(balance));
+
+        
 
 
 
         console.log("---------------------")
         console.log("PART 3...")
 
+var btn = document.getElementById("run-simulation");
+var displayResult = document.getElementById("display-result");
+
+function runSimulation() {
+    var initialBalance = parseFloat(document.getElementById("input-balance").value);
+    var targetBalance = parseFloat(document.getElementById("input-target").value);
+    var mean = parseFloat(document.getElementById("input-mean").value) / 100; // Convert to decimal
+    var std = parseFloat(document.getElementById("input-std").value) / 100; // Convert to decimal
+
+    var year = 0;
+    var balance = initialBalance;
+    var rateGenerator = d3.randomNormal(mean, std);
+
+    while (balance < targetBalance) {
+        var rate = rateGenerator();
+        year++;
+        balance *= (1 + rate);
+        console.log(`Year: ${year}, Rate: ${(rate * 100).toFixed(2)}%, Balance: ${formatUSD(balance)}`);
+    }
+
+    var resultMessage = `It took ${year} years to reach ${formatUSD(targetBalance)}. Ending Balance: ${formatUSD(balance)}`;
+    displayResult.innerText = resultMessage;
+
+    console.log("DONE!");
+    console.log(resultMessage);
+}
+
+btn.addEventListener("click", runSimulation);
 
 
 
-    </script>
+</script>
 </body>
 </html>

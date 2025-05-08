@@ -84,25 +84,65 @@
             console.log("PART 1...")
 
 
+        // A. 
+        console.log(`Number of Products: ${products.length}`);
+
+        // B. 
+        products.forEach(product => {
+            const price = parseFloat(product.price);
+            console.log(`Name: ${product.name}, Price: ${formatUSD(price)}`);
+        });
+
+        console.log("---------------------")
+
+        // C. 
+        const departments = [];
+        products.forEach(product => {
+            if (!departments.includes(product.department)) {
+                departments.push(product.department);
+            }
+        });
+
+        console.log(`Number of Departments: ${departments.length}`);
+
+        // D. 
+        departments.forEach(department => {
+            console.log(department.toUpperCase());
+        });
+
+        console.log("---------------------")
+
+        // E. 
+        const beverages = products.filter(product => product.department.toLowerCase() === "beverages");
+        console.log(`Number of Beverages: ${beverages.length}`);
+
+        // F. 
+        const totalBeveragePrice = beverages.reduce((sum, product) => sum + parseFloat(product.price), 0);
+        const averageBeveragePrice = totalBeveragePrice / beverages.length;
+        console.log(`Average Beverage Price: ${formatUSD(averageBeveragePrice)}`);
+
+
+        console.log("---------------------")
+        console.log("PART 2...")
+
+        const displayGroceries = document.getElementById("display-groceries");
+
+        // Sort products by name in ascending order
+        const sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
+
+        // Display each product as a list item
+        sortedProducts.forEach(product => {
+            const price = parseFloat(product.price);
+            const listItem = document.createElement("li");
+            listItem.textContent = `${product.name}: ${formatUSD(price)}`;
+            displayGroceries.appendChild(listItem);
+        });
 
 
 
-
-            console.log("---------------------")
-            console.log("PART 2...")
-
-
-
-
-
-
-
-
-
-
-            }).catch(function(error) {
-                console.error("ERROR:", error)
-        })
+    }).catch(function(error) {
+        console.error("ERROR:", error)
+    })
 
     </script>
 </body>

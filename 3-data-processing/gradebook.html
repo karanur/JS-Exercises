@@ -64,7 +64,28 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        // A. 
+        console.log(`Download Date: ${gradebook.downloadDate}`);
 
+        // B. 
+        console.log(`Number of Students: ${gradebook.students.length}`);
+
+        // C. 
+        gradebook.students.forEach(student => {
+            console.log(`Name: ${student.name}, Grade: ${student.finalGrade}`);
+        });
+
+        // D. 
+        var grades = gradebook.students.map(student => student.finalGrade);
+        console.log("Grades Array:", grades);
+
+        // E. 
+        var average = d3.mean(grades);
+        console.log(`Average Grade: ${average.toFixed(2)}`);
+
+        // F. 
+        var median = d3.median(grades);
+        console.log(`Median Grade: ${median.toFixed(2)}`);
 
 
 
@@ -73,6 +94,28 @@
         console.log("PART 2...")
 
 
+        // Get the table element
+        var table = document.getElementById("display-gradebook");
+
+        // Create the header row
+        var headerRow = document.createElement("tr");
+        headerRow.innerHTML = `
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Final Grade</th>
+        `;
+        table.appendChild(headerRow);
+
+        // Populate the table with student data
+        gradebook.students.forEach(student => {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${student.studentId}</td>
+                <td>${student.name}</td>
+                <td>${student.finalGrade.toFixed(2)}</td>
+            `;
+            table.appendChild(row);
+        });
 
 
 

@@ -90,13 +90,60 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
+        // A. weather is already fetched above
+
+        // B. 
+        const generatedDate = data.properties.updated;
+        console.log(`Date Generated: ${generatedDate}`);
+
+        // C. 
+        const periods = data.properties.periods;
+        console.log(`Number of Periods: ${periods.length}`);
+
+        // D. 
+        const daytimePeriods = periods.filter(period => period.isDaytime);
+        console.log(`Number of Daytime Periods: ${daytimePeriods.length}`);
+
+        // E. Display a readable weather forecast for each daytime period
+        daytimePeriods.forEach(period => {
+            console.log(`Period: ${period.name}`);
+            console.log(`Temperature: ${period.temperature}\u00B0${period.temperatureUnit}`);
+            console.log(`Forecast: ${period.detailedForecast}`);
+            console.log("---------------------");
+        });
 
 
+            console.log("---------------------")
+            console.log("PART 2...")
 
-                console.log("---------------------")
-                console.log("PART 2...")
 
+            document.getElementById("display-date").textContent = generatedDate;
 
+            // Get the forecast table
+            const forecastTable = document.getElementById("display-forecast");
+
+             // Create the table headers
+        forecastTable.innerHTML = `
+            <tr>
+                <th>Period</th>
+                <th>Temperature</th>
+                <th>Forecast</th>
+                <th>Icon</th>
+            </tr>
+        `;
+
+        // Populate the table with daytime periods data
+        daytimePeriods.forEach(period => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${period.name}</td>
+                <td>${period.temperature}\u00B0${period.temperatureUnit}</td>
+                <td>${period.detailedForecast}</td>
+                <td><img src="${period.icon}" alt="Weather Icon" width="50"></td>
+            `;
+            forecastTable.appendChild(row);
+        });
 
 
             })

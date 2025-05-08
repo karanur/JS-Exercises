@@ -87,12 +87,47 @@
         console.log("---------------------")
         console.log("PART 1...")
 
-
-
+        // A
+        console.log(`Your driver is ${trip.driver.first_name}`);
+        // B
+        console.log(`License Plate: ${trip.vehicle.licensePlate}`);
+        // C
+        console.log(`Number of stops: ${trip.stops.length}`);
+        // D
+        console.log(`First stop destination: ${trip.stops[0].destination}`);
+        // E
+        console.log(`Last stop destination: ${trip.stops[trip.stops.length - 1].destination}`);
+        // F
+        trip.stops.forEach((stop, index) => {
+        console.log(`Passenger ${index + 1}: ${stop.passenger}`);   
+        });
+        // G
+        const fares = trip.stops.map(stop => stop.fare);
+        console.log("Fares: ", fares);
+        // H
+        const totalFare = fares.reduce((acc, fare) => acc + fare, 0);
+        console.log(`Total fare: $${totalFare.toFixed(2)}`);
 
 
         console.log("---------------------")
         console.log("PART 2...")
+
+    // A 
+    document.getElementById("display-driver").textContent = trip.driver.first_name;
+
+    // B
+    document.getElementById("display-vehicle").textContent = `${trip.vehicle.make} ${trip.vehicle.model}, ${trip.vehicle.licensePlate}`;
+
+    // C
+    const passengersList = document.getElementById("display-passengers");
+    trip.stops.forEach(stop => {
+    const listItem = document.createElement("li");
+    listItem.textContent = stop.passenger;
+    passengersList.appendChild(listItem);
+    });
+
+      
+
 
 
 
